@@ -17,7 +17,6 @@ The *Sync widget* also has an status *Toast* that displays the status of the cur
 When an action is being executed, the user is free to close the modal. When the modal is closed, a small Toast will appear in order to notify the user of the current process' status, and to prompot the user for more information if necessary e.g. two-fa.
 
 The developer can easily integrate the *Sync Widget* by using:
-
 - Configuration params
 - Widget instance methods
 - Handle the different events emitted
@@ -29,7 +28,6 @@ The *Sync Widget* can be used in 3 different use cases:
 Opens the Sync Widget modal in order to add a new credential.
 
 When to use this case?
-
 - Use this case when creating a new credential
 
 #### UpdateCase
@@ -38,7 +36,6 @@ Opens the *Sync Widget* modal directly for the specified site. Since the *Sync A
 
 
 When to use this case?
-
 - If the end-user changed his password for a given site, use this mode to prompt the user to update his site password in the Sync API.
 
 #### SyncCase
@@ -46,7 +43,6 @@ When to use this case?
 Opens the Sync Widget status Toast for the specified credential. This action triggers a job in the Sync API to synchronize the credential. If the credential does not require two-fa, then no more information is required. However, if the credential requires two-fa, the status Toast will eventually ask the user for this value.
 
 When to use this case?
-
 - To keep two-fa credentials up to date.
 
 ## Docs
@@ -55,35 +51,40 @@ When to use this case?
 
 To instantiate the *Sync Widget* specify these parameters:
 
-| **Parameter**    |      **Type**       | **Default Value** | **Description**                                              |
-| ---------------- | :-----------------: | :---------------- | :----------------------------------------------------------- |
-| `token`          |     **String**      | *N/A*             | A valid Sync API **token** whether for Sandbox or Production environments |
-| `element`        | **String, Element** | `"#widget"`       | A valid *HTML DOM* element selector in which the widget will be rendered OR an **Element** instance from the DOM |
-| `config`         |  **WidgetConfig**   | *See table below* | A valid **WidgetConfig** object                              |
-| `enableTestMode` |     **Boolean**     | `false`           | Enable widget to access test mode                            |
+| **Parameter** | **Type** | **Default Value** | **Description** |
+|-|:-:|:-|:-|
+| `token` | **String** | *N/A* | A valid Sync API **token** whether for Sandbox or Production environments |
+| `element` | **String, Element** | `"#widget"` | A valid *HTML DOM* element selector in which the widget will be rendered OR an **Element** instance from the DOM |
+| `config` | **WidgetConfig** | *See table below* | A valid **WidgetConfig** object |
+| `enableTestMode` | **Boolean** | `false` | Enable widget to access test mode |
 
 The **WidgetConfig** attributes are described in this table:
 
-| **Attribute**                          |     **Type**      | **Available or Sample Values**            | **Default Value**                                            | **Description**                                              |
-| -------------------------------------- | :---------------: | :---------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| `locale`                               |    **String**     | `"en"`, `"es"`                            | `"es"`                                                       | Specifies the widget language                                |
-| `entrypoint`                           |    **Object**     | An object                                 | `{ idCountry: 'MX' }`                                        | Specifies the entrypoint of the widget. If not given, the widget is to be opened in **CreationCase** |
-| `entrypoint.country`¹                  |    **String**     | A valid country Id or ISO country code    | `"MX"`                                                       | Opens the widget in **CreationCase** for the given country   |
-| `entrypoint.credential`¹ ²             |    **String**     | A valid credential ID                     | `null`                                                       | Opens the widget in **SyncCase** for the given credential    |
-| `entrypoint.site`¹ ²                   |    **String**     | A valid site ID                           | `null`                                                       | Opens widget in **UpdateCase** for the given site            |
-| `entrypoint.siteOrganizationType`¹     |    **String**     | A valid site organization type ID or name | `"Bank"`                                                     | Opens widget in **CreationCase** and selects the tab related to the given site organization type |
-| `navigation`                           |    **Object**     | An object                                 | `{}`                                                         | Specifies navigation settings                                |
-| `navigation.displayBusinessSites`      |    **Boolean**    | `true`, `false`                           | `true`                                                       | If true, display all Business sites. Hide all business sites otherwise |
-| `navigation.displayLogoImages`         |    **Boolean**    | `true`, `false`                           | `true`                                                       | If true, display all logos (images) for sites, site organizations, and the logo image in the notification status toast. If false, logos will not be displayed anywhere. |
-| `navigation.displayLongDescription`    |    **Boolean**    | `true`, `false`                           | `true`                                                       | If true, when a final status is reached, the status toast will automatically expand and display the long description. |
-| `navigation.displayPersonalSites`      |    **Boolean**    | `true`, `false`                           | `true`                                                       | If true, display all Personal sites. Hide all personal sites otherwise |
-| `navigation.displayStatusInToast`      |    **Boolean**    | `true`, `false`                           | `false`                                                      | If true, close the modal when the web socket is initiated and thus the process will continue in the toast. If false the synchronization process can be continued in the modal, or in the toast if the user manually closes the modal |
-| `navigation.enableBackNavigation`      |    **Boolean**    | `true`, `false`                           | `true`                                                       | If true, display the *Back* buttons in both, the *Side Menu* and in the *Credential Input Form*. Otherwise these back buttons will be hidden thus preventing the user from nagivating back once a site is selected for synchronization |
-| `navigation.hideSites`                 | **Array<String>** | `['CIEC']`                                | `[]`                                                         | Hide any given site. Array items can be IDs or names.        |
-| `navigation.hideSiteOrganizations`     | **Array<String>** | `['SAT']`                                 | `[]`                                                         | Hide any given site organization. Array items can be IDs or names. |
-| `navigation.hideSiteOrganizationTypes` | **Array<String>** | `['Blockchain']`                          | `[]`                                                         | Hide any given site organzation type. Array items can be IDs or names. |
-| `navigation.toastDuration`             |    **String**     | 5000                                      | 3000                                                         | The duration in ms that the status toast is to be kept opened when the final status is successful. If the final status is error, the toast needs to be manually closed. |
-| `navigation.toastPosition`             |    **String**     | `top-right`                               | `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`. | Display the status toast in the given position.              |
+| **Attribute** | **Type** | **Available or Sample Values** | **Default Value** | **Description** |
+|-|:-:|:-|:-|:-|
+| `locale` | **String** | `"en"`, `"es"` | `"es"` | Specifies the widget language |
+| `entrypoint` | **Object** | An object | `{ idCountry: 'MX' }` | Specifies the entrypoint of the widget. If not given, the widget is to be opened in **CreationCase** |
+| `entrypoint.country`¹ | **String** | A valid country Id or ISO country code | `"MX"` | Opens the widget in **CreationCase** for the given country |
+| `entrypoint.credential`¹ ² | **String** | A valid credential ID | `null` | Opens the widget in **SyncCase** for the given credential |
+| `entrypoint.site`¹ ² | **String** | A valid site ID | `null` | Opens widget in **UpdateCase** for the given site |
+| `entrypoint.siteOrganizationType`¹ | **String** | A valid site organization type ID | `null` | Opens widget in **CreationCase** and selects the tab related to the given site organization type |
+| `navigation` | **Object** | An object | `{}` | Specifies navigation settings |
+| `navigation.displayBusinessSites` | **Boolean** | `true`, `false` | `true` | If true, display all Business sites. Hide all business sites otherwise |
+| `navigation.displayLogoImages` | **Boolean** | `true`, `false` | `true` | If true, display all logos (images) for sites, site organizations, and the logo image in the notification status toast. If false, logos will not be displayed anywhere. |
+| `navigation.displayLongDescription` | **Boolean** | `true`, `false` | `true` | If true, when a final status is reached, the status toast will automatically expand and display the long description. |
+| `navigation.displayPersonalSites` | **Boolean** | `true`, `false` | `true` | If true, display all Personal sites. Hide all personal sites otherwise  |
+| `navigation.displayStatusInToast` | **Boolean** | `true`, `false` | `false` | If true, close the modal when the web socket is initiated and thus the process will continue in the toast. If false the synchronization process can be continued in the modal, or in the toast if the user manually closes the modal |
+| `navigation.hideAsideMenu` | **Boolean** | `true`, `false` | `false` | If true, hide *Side Menu* always. Otherwise *Side Menu* can be toggled with hamburger button.|
+| `navigation.hideSelectCountry` | **Boolean** | `true`, `false` | `false` | If true, hide the *Select Country* input in *Side Menu*. Otherwise it wil show. |
+| `navigation.enableBackNavigation` | **Boolean** | `true`, `false` | `true` | If true, display the *Back* buttons in both, the *Side Menu* and in the *Credential Input Form*. Otherwise these back buttons will be hidden thus preventing the user from nagivating back once a site is selected for synchronization |
+| `navigation.hideSites` | **Array<String>** | `['CIEC']` | `[]` | Hide any given site. Array items can be IDs or names. |
+| `navigation.hideSiteOrganizations` | **Array<String>** | `['SAT']` | `[]` | Hide any given site organization. Array items can be IDs or names. |
+| `navigation.hideSiteOrganizationTypes` | **Array<String>** | `['Blockchain']` | `[]` | Hide any given site organzation type. Array items can be IDs or names. |
+| `navigation.displaySites` | **Array<String>** | `['CIEC']` | `[]` | Display only given sites in this array. Array items can be IDs or names. This option gets priority over `navigation.hideSites`|
+| `navigation.displaySiteOrganizations` | **Array<String>** | `['SAT']` | `[]` |  Display only given site organizations in this array. Array items can be IDs or names. This option gets priority over `navigation.hideSiteOrganizations`|
+| `navigation.displaySiteOrganizationTypes` | **Array<String>** | `['Blockchain']` | `[]` |  Display only given site organzation types in this array. Array items can be IDs or names. This option gets priority over `navigation.displaySiteOrganizationTypes`|
+| `navigation.toastDuration` | **String** | 3000 | 5000 | The duration in ms that the status toast is to be kept opened when the final status is successful. If the final status is error, the toast needs to be manually closed. |
+| `navigation.toastPosition` | **String** | `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`.  | `top-right` | Display the status toast in the given position. |
 
 
 ¹ If a given entrypoint attribute value is not found, the widget will raise an exception and will not display any data. For instance, if you provide an idSite that is not found in the Sync API catalogues, or it exists but not allowed for the given configuration e.g. given a Business idSite when the widget is configured to display only Personal sites.
@@ -110,16 +111,16 @@ syncWidget = new SyncWidget(params);
 
 The *Sync Widget* **instance** methods are described in this table:
 
-| **Method**                                                |                      **Sample**                      | **Description**                                              |
-| --------------------------------------------------------- | :--------------------------------------------------: | :----------------------------------------------------------- |
-| `close(void)`                                             |                 `syncWidget.close()`                 | Close the *Sync Widget* modal                                |
-| `open(void)`                                              |                 `syncWidget.open()`                  | Opens the *Sync Widget* modal                                |
-| `$on(String eventName)`                                   |         `syncWidget.$on("opened", () => {})`         | Subscribe to a *Sync Widget* event                           |
-| `setConfig(Object<WidgetConfig> widgetConfig)`            |            `syncWidget.setConfig({...})`             | Set a new *Sync Widget* configuration. This config will totally replace the current's widget instance configuration |
+| **Method** | **Sample** | **Description** |
+|-|:-:|:-|
+| `close(void)` | `syncWidget.close()` | Close the *Sync Widget* modal |
+| `open(void)` | `syncWidget.open()` | Opens the *Sync Widget* modal |
+| `$on(String eventName)` | `syncWidget.$on("opened", () => {})` | Subscribe to a *Sync Widget* event |
+| `setConfig(Object<WidgetConfig> widgetConfig)` | `syncWidget.setConfig({...})` | Set a new *Sync Widget* configuration. This config will totally replace the current's widget instance configuration  |
 | `setEntrypointCredential(String<ObjectId> idCredential)`¹ | `syncWidget.setEntrypointSite('some-credential-id')` | Opens the *Sync Widget* instance in **SyncCase** for the given credential |
-| `setEntrypointSite(String<ObjectId> idSite)`              |    `syncWidget.setEntrypointSite('some-site-id')`    | Sets ups the *Sync Widget* instance in **UpdateCase** for the given site |
-| `setToken(String token)`                                  |     `syncWidget.setToken('some-sync-api-token')`     | Sets up the *Sync Widget* instance authentication token. This token is used to authenticate against Sync API |
-| `upsertConfig(Object<WidgetConfig> widgetConfig)`         |           `syncWidget.upsertConfig({...})`           | Update *Sync Widget* config. This config will be merged with the current's widget instance configuration |
+| `setEntrypointSite(String<ObjectId> idSite)` | `syncWidget.setEntrypointSite('some-site-id')` | Sets ups the *Sync Widget* instance in **UpdateCase** for the given site |
+| `setToken(String token)` | `syncWidget.setToken('some-sync-api-token')` | Sets up the *Sync Widget* instance authentication token. This token is used to authenticate against Sync API |
+| `upsertConfig(Object<WidgetConfig> widgetConfig)` | `syncWidget.upsertConfig({...})` | Update *Sync Widget* config. This config will be merged with the current's widget instance configuration  |
 
 ¹ `setEntrypointCredential(...)` method will trigger the synchronization process. Since this action starts the widget for the **SyncCase** and this case does not uses the modal, there is no need to execute `open()` after setting the credential entrypoint.
 
@@ -127,14 +128,14 @@ The *Sync Widget* **instance** methods are described in this table:
 
 These are the events emitted by the *Sync Widget*:
 
-| **Event Name**                     |     **Value**      | **Description**                                              |
-| ---------------------------------- | :----------------: | :----------------------------------------------------------- |
-| `"closed"`                         |       `void`       | Triggered when the *Sync Widget* is closed                   |
-| `"error"`                          |    `Credential`    | Triggered if a credential had an error while being synchronized. A final error status is obtained from *Sync API* |
-| `"opened"`                         |       `void`       | Triggered when the *Sync Widget* is opened                   |
-| `"status"`                         | `CredentialStatus` | Triggered after each websocket status change reported to the *Sync Widget* from *Sync API* |
-| `"success"`                        |    `Credential`    | Triggered if a credential is successfully synchronized. A final success status is obtained from *Sync API* |
-| `"updated"`                        |    `Credential`    | Triggered after credential values are sent to the *Sync API* using POST/PUT endpoints |
+| **Event Name** | **Value** | **Description** |
+|-|:-:|:-|
+| `"closed"` | `void` | Triggered when the *Sync Widget* is closed |
+| `"error"` | `Credential` | Triggered if a credential had an error while being synchronized. A final error status is obtained from *Sync API* |
+| `"opened"` | `void` | Triggered when the *Sync Widget* is opened |
+| `"status"` | `CredentialStatus` | Triggered after each websocket status change reported to the *Sync Widget* from *Sync API* |
+| `"success"` | `Credential` | Triggered if a credential is successfully synchronized. A final success status is obtained from *Sync API*|
+| `"updated"` | `Credential` | Triggered after credential values are sent to the *Sync API* using POST/PUT endpoints |
 
 The event values can belong to the following models:
 
@@ -254,7 +255,6 @@ Open the widget in SyncCase:
     }
 }
 ```
-
 
 
 ### Example:
