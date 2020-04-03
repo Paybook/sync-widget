@@ -10,4 +10,5 @@ You can review some of the docs here as well.
 - [Configuration](https://github.com/Paybook/sync-widget/tree/master/docs/config.md)
 - [Methods](https://github.com/Paybook/sync-widget/tree/master/docs/methods.md)
 - [Events](https://github.com/Paybook/sync-widget/tree/master/docs/events.md)
+- [Codes](https://github.com/Paybook/sync-widget/tree/master/docs/codes.md)
 - [Examples](https://github.com/Paybook/sync-widget/tree/master/docs/examples.md)
