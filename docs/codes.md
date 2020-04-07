@@ -88,11 +88,6 @@ Credential Status Codes
             <td>The connection has been successful. However, the data downloaded is incompleted.</td>
         </tr>
       	<tr>
-            <td>205</td>
-            <td>Pending</td>
-            <td>-</td>
-        </tr>
-      	<tr>
             <td>206</td>
             <td>NoAccounts</td>
             <td>The connection has been successful. However, there were no accounts linked to the given credentials.</td>
