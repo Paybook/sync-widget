@@ -1,21 +1,3 @@
-### Overview
-
----
-
-<br />
-
-<figure class="image">
-  <img src="https://drive.google.com/uc?export=view&id=1Ll-fQQodIEnlx9ys0U4hn67y8w_EjNlX"/>
-</figure>
-
-##### What is the Sync Widget?
-
-The _Sync Widget_ is the easiest way to implement the Sync API. By using this widget you can very quickly integrate your web application with the Sync API and being able to **create** and **update** credentials right away.
-
----
-
-<br />
-
 ##### How to install it?
 
 There are two ways to install the Sync Widget
@@ -31,13 +13,13 @@ npm install --save @paybook/sync-widget
 And then import the widget styles to your app:
 
 ```javascript
-import '@paybook/sync-widget/dist/widget.css';
+import "@paybook/sync-widget/dist/widget.css";
 ```
 
 And finally get access to the `SyncWidget` class by importing it:
 
 ```javascript
-import SyncWidget from '@paybook/sync-widget';
+import SyncWidget from "@paybook/sync-widget";
 ```
 
 _[2] Using CDN:_
@@ -47,13 +29,19 @@ To install it via CDN import the following files in your _index.html_ file:
 Add this line in the `<head>` element:
 
 ```html
-<link rel="stylesheet" href="https://www.paybook.com/sync/widget/v2/widget.css" />
+<link
+  rel="stylesheet"
+  href="https://www.paybook.com/sync/widget/v2/widget.css"
+/>
 ```
 
 And add this line in the `<body>` element:
 
 ```html
-<script type="text/javascript" src="https://www.paybook.com/sync/widget/v2/widget.js"></script>
+<script
+  type="text/javascript"
+  src="https://www.paybook.com/sync/widget/v2/widget.js"
+></script>
 ```
 
 This will expose the `SyncWidget` class in the global window object
