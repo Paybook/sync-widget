@@ -185,6 +185,10 @@ The **WidgetConfig** object is described below:
     // in the site. Otherwise, the widget will wait to complete all download process. 
     // Default=false
     "quickAnswer": "bool",
+    // If true, site and twofa forms and their inner inputs autocomplete property will be set to "off". 
+    // Otherwise, it will be identified by its site id and field name, thus applying the user agent default behaviour. 
+    // Default=false
+    "disableFormAutocomplete": "bool"
   }
 }
 ```
