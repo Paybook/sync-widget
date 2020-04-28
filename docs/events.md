@@ -140,3 +140,19 @@ syncWidget.$on('error', (credential: Credential) => {
 ```
 
 For details on which errors might happend and how to handle them, consult the Sync API docs.
+
+---
+
+<br />
+
+`$on("401", ... )`
+
+Event 401 is triggered when the user session is unauthorized.
+
+```javascript
+syncWidget.$on('401', () => {
+  // ... do something when user session is unauthorized.
+  // i.e. refresh user session.
+  });
+```
+
