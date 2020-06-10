@@ -156,3 +156,18 @@ syncWidget.$on('401', () => {
   });
 ```
 
+---
+
+<br />
+
+`$on("api-error", ... )`
+
+Event api-error is triggered when making call to sync api returns an error status code. For a list of `statusCode` meaning check **Codes** section.
+
+```javascript
+syncWidget.$on('api-error', (statusCode) => {
+  // ... do something on api error.
+  // i.e. refresh user session.
+  });
+```
+
