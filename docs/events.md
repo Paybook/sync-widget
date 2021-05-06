@@ -16,7 +16,7 @@ syncWidget = new SyncWidget(params);
 myCallbackForThisEvent = () => {
     /*
     * This is your registered callback that will be executed every
-    * time this event is triggered by the Sync Widget
+    * time this event is triggered by the Syncfy Widget
     */
     ....
 }
@@ -60,7 +60,7 @@ The list of events available is described below:
 `$on("opened", ... )`
 
 ```javascript
-syncWidget.$on('opened', () => {
+syncWidget.$on("opened", () => {
   // ... do something when the widget is opened ...
 });
 ```
@@ -72,7 +72,7 @@ syncWidget.$on('opened', () => {
 `$on("closed", ... )`
 
 ```javascript
-syncWidget.$on('closed', () => {
+syncWidget.$on("closed", () => {
   // ... do something when the widget is closed ...
 });
 ```
@@ -84,9 +84,9 @@ syncWidget.$on('closed', () => {
 `$on("updated", ... )`
 
 ```javascript
-syncWidget.$on('updated', (status: CredentialStatus) => {
+syncWidget.$on("updated", (status: CredentialStatus) => {
   /*
-    * In particular, this event is triggered after the Sync 
+    * In particular, this event is triggered after the Syncfy 
     * API responds that it has received the credential values, 
     * *and the synchronization process is about to start
     * 
@@ -102,7 +102,7 @@ syncWidget.$on('updated', (status: CredentialStatus) => {
 `$on("status", ... )`
 
 ```javascript
-syncWidget.$on('status', (status: CredentialStatus) => {
+syncWidget.$on("status", (status: CredentialStatus) => {
   /*
     * In particular, this event is triggered while the synchronization status 
     * is running and after each change in the synchronization status this
@@ -113,7 +113,7 @@ syncWidget.$on('status', (status: CredentialStatus) => {
 });
 ```
 
-For details on which are the statuses and more details on this consult the Sync API docs.
+For details on which are the statuses and more details on this consult the Syncfy API docs.
 
 ---
 
@@ -122,7 +122,7 @@ For details on which are the statuses and more details on this consult the Sync 
 `$on("success", ... )`
 
 ```javascript
-syncWidget.$on('success', (credential: Credential) => {
+syncWidget.$on("success", (credential: Credential) => {
   // ... do something when the synchronization of a credential is finished successfully
 });
 ```
@@ -134,12 +134,12 @@ syncWidget.$on('success', (credential: Credential) => {
 `$on("error", ... )`
 
 ```javascript
-syncWidget.$on('error', (credential: Credential) => {
+syncWidget.$on("error", (credential: Credential) => {
   // ... do something when there is some error in the synchronization of credentials  ...
 });
 ```
 
-For details on which errors might happend and how to handle them, consult the Sync API docs.
+For details on which errors might happend and how to handle them, consult the Syncfy API docs.
 
 ---
 
@@ -150,10 +150,10 @@ For details on which errors might happend and how to handle them, consult the Sy
 Event 401 is triggered when the user session is unauthorized.
 
 ```javascript
-syncWidget.$on('401', () => {
+syncWidget.$on("401", () => {
   // ... do something when user session is unauthorized.
   // i.e. refresh user session.
-  });
+});
 ```
 
 ---
@@ -162,12 +162,11 @@ syncWidget.$on('401', () => {
 
 `$on("api-error", ... )`
 
-Event api-error is triggered when making call to sync api returns an error status code. For a list of `statusCode` meaning check **Codes** section.
+Event api-error is triggered when making call to Syncfy API returns an error status code. For a list of `statusCode` meaning check **Codes** section.
 
 ```javascript
-syncWidget.$on('api-error', (statusCode) => {
+syncWidget.$on("api-error", (statusCode) => {
   // ... do something on api error.
   // i.e. refresh user session.
-  });
+});
 ```
-
