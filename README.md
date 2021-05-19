@@ -1,6 +1,6 @@
-# Sync Widget
+# Syncfy Widget
 
-The Complete Documentation is available in our [Sync Docs Site](https://www.paybook.com/w/en/sync/public/app/(section:docs/mx/sync/widget/overview)).
+The Complete Documentation is available in our [Syncfy Docs Site](<https://syncfy.com/w/en/sync/public/app/(section:docs/mx/sync/widget/overview)>).
 
 You can review some of the docs here as well.
 
