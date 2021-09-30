@@ -99,6 +99,18 @@ syncWidget.$on("updated", (status: CredentialStatus) => {
 
 <br />
 
+`$on("submitted", ... )`
+
+```javascript
+syncWidget.$on("submitted", () => {
+  // ... do something when a form is submitted ...
+});
+```
+
+---
+
+<br />
+
 `$on("status", ... )`
 
 ```javascript
