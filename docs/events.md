@@ -81,6 +81,18 @@ syncWidget.$on("closed", () => {
 
 <br />
 
+`$on("back", ... )`
+
+```javascript
+syncWidget.$on("back", () => {
+  // ... do something when a back button is clicked ...
+});
+```
+
+---
+
+<br />
+
 `$on("updated", ... )`
 
 ```javascript
