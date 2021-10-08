@@ -119,6 +119,10 @@ The **WidgetConfig** object is described below:
   // In general, the navigation value will specify which elements will be displayed and
   // thus limit or extend the navigation capabilities for the end-user:
   "navigation": {
+    // If true, site and twofa forms and their inner inputs autocomplete property will be set to "off".
+    // Otherwise, it will be identified by its site id and field name, thus applying the user agent default behaviour.
+    // Default=false
+    "disableFormAutocomplete": "bool",
     // If true, display all Business sites e.g. 'cuentas de sitios empresariales'.
     // Default=true
     "displayBusinessSites": "bool",
@@ -134,6 +138,18 @@ The **WidgetConfig** object is described below:
     // If true, display all Personal sites e.g. a personal site is one that is
     // not business. Default=true
     "displayPersonalSites": "bool",
+    // If specified, only the site organaizations given will be displayed in
+    // the widget. The array must contain id_site_organization(s) or site
+    // organization's names (as returned by the API). Default=[]. Sample=['SAT']
+    "displaySiteOrganizations": "array<string>",
+    // If specified, only the site organaization types given will be displayed in the
+    // widget. The array must contain id_site_organization_type(s) or site organization
+    // type's names (as returned by the API). Default=[]. Sample=['Government']
+    "displaySiteOrganizationTypes": "array<string>",
+    // If specified, only the sites given will be displayed in the widget.
+    // The array must contain id_site(s) or site's names (as returned by the API).
+    //  Default=[]. Sample=['CIEC']
+    "displaySites": "array<string>",
     // If true, close the modal when the synchronization is initiated (websocket starts)
     // and thus the process will continue in a status toast. If false, the synchronization
     // process will carry on in the modal (if the user closes the modal,
@@ -144,15 +160,15 @@ The **WidgetConfig** object is described below:
     // Otherwise these back buttons will be hidden thus preventing the user from
     // nagivating back once a site is selected for synchronization. Default=true
     "enableBackNavigation": "bool",
+    // If true, form submit buttons will be disabled until the form is in a valid
+    // state. Otherwise buttons will look as enabled but the form won't be able
+    // to be submitted. Default=false
+    "formButtonsDisabledStyle": "bool",
     // If true, will never display the *Aside Menu*. Otherwise *Aide Menu* will be
     // accesible and can be expanded and closed using a hamburger button. Default=false
     "hideAsideMenu": "bool",
     // If true, hide the *Select Country* input located in the *Aside Menu*. Default=false
-    "hideSelectCountry": "",
-    // If specified, the sites given will be hidden in the widget (never displayed).
-    //  The array must contain id_site(s) or site's names (as returned by the API).
-    // Default=[]. Sample=['CIEC']
-    "hideSites": "array<string>",
+    "hideSelectCountry": "bool",
     // If specified, the site organizations given will be hidden in the widget (never displayed).
     // The array must contain id_site_organization(s) or site organization's names (as returned
     // by the API). Default=[]. Sample=['SAT']
@@ -161,18 +177,14 @@ The **WidgetConfig** object is described below:
     // The array must contain id_site_organization_type(s) or site organization type's names
     // (as returned by the API). Default=[]. Sample=['Government']
     "hideSiteOrganizationTypes": "array<string>",
-    // If specified, only the sites given will be displayed in the widget.
-    // The array must contain id_site(s) or site's names (as returned by the API).
-    //  Default=[]. Sample=['CIEC']
-    "displaySites": "array<string>",
-    // If specified, only the site organaizations given will be displayed in
-    // the widget. The array must contain id_site_organization(s) or site
-    // organization's names (as returned by the API). Default=[]. Sample=['SAT']
-    "displaySiteOrganizations": "array<string>",
-    // If specified, only the site organaization types given will be displayed in the
-    // widget. The array must contain id_site_organization_type(s) or site organization
-    // type's names (as returned by the API). Default=[]. Sample=['Government']
-    "displaySiteOrganizationTypes": "array<string>",
+    // If specified, the sites given will be hidden in the widget (never displayed).
+    //  The array must contain id_site(s) or site's names (as returned by the API).
+    // Default=[]. Sample=['CIEC']
+    "hideSites": "array<string>",
+    // If true, success message will be send when the credentials complete login step
+    // in the site. Otherwise, the widget will wait to complete all download process.
+    // Default=false
+    "quickAnswer": "bool",
     // It specifies the duration in miliseconds that the status toast is to be kept
     // opened when the final status is successful. If the final status is error,
     // the end-user will always need to close the toast manually. Default=5000
@@ -180,21 +192,13 @@ The **WidgetConfig** object is described below:
     // It specifies, the location in the screen where the status toast is to be displayed.
     // Default='top-right'. Alowed values: 'top-left', 'top-center', 'top-right',
     // 'bottom-left', 'bottom-center', 'bottom-right'
-    "toastPosition": "string",
-    // If true, success message will be send when the credentials complete login step
-    // in the site. Otherwise, the widget will wait to complete all download process.
-    // Default=false
-    "quickAnswer": "bool",
-    // If true, site and twofa forms and their inner inputs autocomplete property will be set to "off".
-    // Otherwise, it will be identified by its site id and field name, thus applying the user agent default behaviour.
-    // Default=false
-    "disableFormAutocomplete": "bool"
+    "toastPosition": "string"
   }
 }
 ```
 
-Take into account these clariffications:
+Take into account these clarifications:
 
-- If any configuration attribut value is not allowable, the widget will raise an exception and will not be displayed.
+- If any configuration attribute value is not allowable, the widget will raise an exception and will not be displayed.
 - If a given entrypoint attribute value is not valid, the widget will raise an exception and will not display any data. For instance, if you provide a `site` identifier that is not found in the Syncfy API catalogues, or it exists but not allowed for the given configuration e.g. given a Business `site` when the widget is configured to display only Personal sites.
 - For the entrypoint attributes, `credential` takes precedence over `site` if both attributes are given.
