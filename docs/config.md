@@ -160,6 +160,10 @@ The **WidgetConfig** object is described below:
     // Otherwise these back buttons will be hidden thus preventing the user from
     // nagivating back once a site is selected for synchronization. Default=true
     "enableBackNavigation": "bool",
+    // If true, display the *Back* button in the *twofa form*. Otherwise the
+    // back button will be hidden thus preventing the user from navigating back
+    // once a multifactor authentication is challenged. Default=false
+    "enableTwofaBackNavigation": "bool",
     // If true, form submit buttons will be disabled until the form is in a valid
     // state. Otherwise buttons will look as enabled but the form won't be able
     // to be submitted. Default=false
