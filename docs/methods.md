@@ -132,4 +132,4 @@ syncWidget.$on("opened", () => {
 });
 ```
 
-The list of valid eventName(s) is here: "401", "error", "success", "status", "updated", "opened", and "closed". You can consult more about events in the **Events** section.
+The list of valid eventName(s) is here: "401", "error", "success", "status", "updated", "submitted", "back", "opened", and "closed". You can consult more about events in the **Events** section.
