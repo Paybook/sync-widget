@@ -168,7 +168,12 @@ The **WidgetConfig** object is described below:
     // state. Otherwise buttons will look as enabled but the form won't be able
     // to be submitted. Default=false
     "formButtonsDisabledStyle": "bool",
-    // If true, will never display the *Aside Menu*. Otherwise *Aide Menu* will be
+    // If set to *icon*, it will display an icon button in type password inputs to
+    // hide/show the content. If set to *text*, it will display a text button below
+    // the input to hide/show the content. If set to *none*, the input will be always
+    // obfuscated. Default=icon
+    "formShowPasswordStyle": "string",
+    // If true, will never display the *Aside Menu*. Otherwise *Aside Menu* will be
     // accesible and can be expanded and closed using a hamburger button. Default=false
     "hideAsideMenu": "bool",
     // If true, hide the *Select Country* input located in the *Aside Menu*. Default=false
