@@ -90,6 +90,30 @@ syncWidget.$on("opened", () => {
 
 <br />
 
+`$on("loaded", ... )`
+
+```javascript
+syncWidget.$on("loaded", () => {
+  // ... do something when the widget is first loaded ...
+});
+```
+
+---
+
+<br />
+
+`$on("dom-updated", ... )`
+
+```javascript
+syncWidget.$on("dom-updated", () => {
+  // ... do something when the dom changes ...
+});
+```
+
+---
+
+<br />
+
 `$on("closed", ... )`
 
 ```javascript
@@ -225,6 +249,5 @@ Event socket-error is triggered when the socket timeouts or the connection close
 ```javascript
 syncWidget.$on("socket-error", (socketError: SocketError) => {
   // ... do something on socket error.
-  // i.e. restart user flow.
 });
 ```
