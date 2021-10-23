@@ -35,17 +35,38 @@ Some events are `void` (meaning that they don't pass any data to the registered 
 ```json
 // CredentialStatus value:
 {
-    "code": "Number",
+    "code": "Number"
 }
 
 // Credential value:
-Credential {
+{
     "id_credential": "String",
     "username": "String",
     "is_new": "Number",
     "ws": "String",
     "status": "String",
     "twofa": "String"
+}
+
+// ApiError value:
+{
+    "longMessage": "String",
+    "message": "String",
+    "noInternet": "Boolean"
+}
+
+// JobError value:
+{
+    "code": "Number",
+    "longMessage": "String",
+    "message": "String"
+}
+
+// SocketError value:
+{
+    "longMessage": "String",
+    "message": "String",
+    "type": "error | timeout"
 }
 ```
 
@@ -158,7 +179,7 @@ syncWidget.$on("success", (credential: Credential) => {
 `$on("error", ... )`
 
 ```javascript
-syncWidget.$on("error", (credential: Credential) => {
+syncWidget.$on("error", (credential: Credential, jobError: JobError) => {
   // ... do something when there is some error in the synchronization of credentials  ...
 });
 ```
@@ -186,11 +207,24 @@ syncWidget.$on("401", () => {
 
 `$on("api-error", ... )`
 
-Event api-error is triggered when making call to Syncfy API returns an error status code. For a list of `statusCode` meaning check **Codes** section.
+Event api-error is triggered when making call to Syncfy API returns an error status code. For a list of `statusCode` meaning check **Codes** section, the code could also be "credential_not_found" or "site_not_found".
 
 ```javascript
-syncWidget.$on("api-error", (statusCode) => {
+syncWidget.$on("api-error", (statusCode, apiError: ApiError) => {
   // ... do something on api error.
   // i.e. refresh user session.
+});
+```
+
+<br />
+
+`$on("socket-error", ... )`
+
+Event socket-error is triggered when the socket timeouts or the connection closed unexpectedly.
+
+```javascript
+syncWidget.$on("socket-error", (socketError: SocketError) => {
+  // ... do something on socket error.
+  // i.e. restart user flow.
 });
 ```
