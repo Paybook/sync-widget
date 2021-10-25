@@ -205,6 +205,7 @@ syncWidget.$on("success", (credential: Credential) => {
 ```javascript
 syncWidget.$on("error", (credential: Credential, jobError: JobError) => {
   // ... do something when there is some error in the synchronization of credentials  ...
+  // ... jobError is not send if the socket timeouts, for socket errors use socket-error event ...
 });
 ```
 
