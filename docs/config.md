@@ -126,6 +126,10 @@ The **WidgetConfig** object is described below:
     // If true, display all Business sites e.g. 'cuentas de sitios empresariales'.
     // Default=true
     "displayBusinessSites": "bool",
+    // If false and the modal is opened, errors won't be displayed in toasts,
+    // they will be displayed in the modal. Otherwise errors will be displayed
+    // in toasts. Default=true
+    "displayErrorsInToast": "bool",
     // If true, display logos in the widget for the site, site organizations,
     // and the site logo in the status toast. If false, no logos will be displayed.
     // Default=true
