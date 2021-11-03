@@ -194,6 +194,12 @@ The **WidgetConfig** object is described below:
     //  The array must contain id_site(s) or site's names (as returned by the API).
     // Default=[]. Sample=['CIEC']
     "hideSites": "array<string>",
+    // If it is true and entrypoint.site is set, the user flow will start in the site
+    // and end when the connection finishes. If it is false and entrypoint.site is set,
+    // the back to all the institutions button will be enabled and when the connection
+    // ends, another institution can be connected. If entrypoint.site isn't set, it doesn't
+    // take effect. Default=false
+    "oneSiteFlow": "bool",
     // If true, success message will be send when the credentials complete login step
     // in the site. Otherwise, the widget will wait to complete all download process.
     // Default=false
