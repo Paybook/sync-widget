@@ -204,6 +204,8 @@ The **WidgetConfig** object is described below:
     // in the site. Otherwise, the widget will wait to complete all download process.
     // Default=false
     "quickAnswer": "bool",
+    // A class to be appended to all selects' drop-downs. Default=''
+    "selectClass": "string",
     // It specifies the duration in miliseconds that the status toast is to be kept
     // opened when the final status is successful. If the final status is error,
     // the end-user will always need to close the toast manually. Default=5000
