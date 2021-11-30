@@ -114,6 +114,30 @@ syncWidget.$on("dom-updated", () => {
 
 <br />
 
+`$on("images-loading", ... )`
+
+```javascript
+syncWidget.$on("images-loading", () => {
+  // ... do something when more than 0 images are being loaded ...
+});
+```
+
+---
+
+<br />
+
+`$on("images-loaded", ... )`
+
+```javascript
+syncWidget.$on("images-loaded", () => {
+  // ... do something when all the images that were being loaded are loaded ...
+});
+```
+
+---
+
+<br />
+
 `$on("closed", ... )`
 
 ```javascript
