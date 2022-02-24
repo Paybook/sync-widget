@@ -204,6 +204,11 @@ The **WidgetConfig** object is described below:
     // in the site. Otherwise, the widget will wait to complete all download process.
     // Default=false
     "quickAnswer": "bool",
+    // If it is true and the user makes a mistake with his credentials or with a multifactor authentication
+    // challenge, the widget display an error in the site form so he can retry.
+    // Else the error is displayed as the final status.
+    // Default=false
+    "returnToSiteFormOnUserError": "bool",
     // A class to be appended to all selects' drop-downs. Default=''
     "selectClass": "string",
     // It specifies the duration in miliseconds that the status toast is to be kept
