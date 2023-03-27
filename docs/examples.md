@@ -1,6 +1,37 @@
 ## Examples
 
 ---
+<br />
+
+This is the simplest code snippet of the widget. From here you can start configuring the widget as you wish:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://www.syncfy.com/widget/v2/widget.css" />
+    <title>Syncfy Widget Quickstart</title>
+  </head>
+  <body>
+    <div id="widget"></div>
+    <script type="text/javascript" src="https://www.syncfy.com/widget/v2/widget.js"></script>
+    <script>
+      var params = {
+        // Set up the token you created in the Quickstart:
+        token: '<TOKEN_HERE>',
+        config: {
+          navigation: {
+            displayStatusInToast: true,
+          },
+        },
+      };
+      var syncWidget = new SyncWidget(params);
+      syncWidget.open();
+    </script>
+  </body>
+</html>
+```
 
 <br />
 
