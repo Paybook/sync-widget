@@ -11,14 +11,14 @@ This is the simplest code snippet of the widget. From here you can start configu
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://www.syncfy.com/widget/v2/widget.css" />
-    <title>Syncfy Widget Quickstart</title>
+    <title>Syncfy Widget</title>
   </head>
   <body>
     <div id="widget"></div>
     <script type="text/javascript" src="https://www.syncfy.com/widget/v2/widget.js"></script>
     <script>
       var params = {
-        // Set up the token you created in the Quickstart:
+        // Set up the token
         token: '<TOKEN_HERE>',
         config: {
           navigation: {
