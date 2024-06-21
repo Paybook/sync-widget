@@ -220,7 +220,12 @@ The **WidgetConfig** object is described below:
     // It specifies, the location in the screen where the status toast is to be displayed.
     // Default='top-right'. Alowed values: 'top-left', 'top-center', 'top-right',
     // 'bottom-left', 'bottom-center', 'bottom-right'
-    "toastPosition": "string"
+    "toastPosition": "string",
+    //Assign a specific time to the socket timeout; this value is managed in milliseconds.
+    //If this attribute is not added, it defaults to 300000 milliseconds.
+    //This attribute is useful if you have a credential with multiple accounts and need
+    //to wait until the execution is complete.
+    "socketTimeout": 600000,
   }
 }
 ```
