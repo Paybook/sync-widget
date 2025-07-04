@@ -101,17 +101,6 @@ When set, the widget will start in the given site, ready to update credentials (
 
 ---
 
-## getLastRid()
-
-```javascript
-// Get the last request ID (rid) from API calls.
-const rid = syncfyWidget.getLastRid();
-```
-
-Returns the last request ID used in API calls. Useful for debugging or tracking requests.
-
----
-
 ## setEntrypointUpdateCredential(idCredential: String)
 
 ```javascript
@@ -120,6 +109,17 @@ syncfyWidget.setEntrypointUpdateCredential("...credential-id...");
 ```
 
 This method opens the widget in UpdateCase for the specified credential, showing only non-identifier fields. You do not need to call `open()` after this method.
+
+---
+
+## getLastRid()
+
+```javascript
+// Get the last request ID (rid) from API calls.
+const rid = syncfyWidget.getLastRid();
+```
+
+Returns the last request ID used in API calls. Useful for debugging or tracking requests.
 
 ---
 
