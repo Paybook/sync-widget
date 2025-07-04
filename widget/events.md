@@ -1,278 +1,316 @@
-### Events
+# Syncfy Widget Events
 
 ---
 
-<br />
+The Syncfy Widget emits events to communicate status, progress, and errors to your application. You can subscribe to these events using the `on` method of your widget instance.
 
-Events are emitted by the widget under certain conditions in order to communicate the status of the synchronization of credentials to your application.
-
-To handle this events, after creating your widget instance subscribe to those events using the syncWidget's `$on` method:
+## How to Listen to Events
 
 ```javascript
-...
+const syncfyWidget = new SyncfyWidget(params);
 
-syncWidget = new SyncWidget(params);
-
-myCallbackForThisEvent = () => {
-    /*
-    * This is your registered callback that will be executed every
-    * time this event is triggered by the Syncfy Widget
-    */
-    ....
+function myCallbackForThisEvent(data) {
+  // This function will be called whenever the event is triggered.
 }
 
-syncWidget.$on('... some eventName ... ', myCallbackForThisEvent);
+syncfyWidget.on("event-name", myCallbackForThisEvent);
 ```
+
+> Replace `'event-name'` with the name of the event you want to listen for. The callback receives event-specific data (see below).
 
 ---
 
 <br />
 
-##### What values does each event emit?
+## Event Payloads
 
-Some events are `void` (meaning that they don't pass any data to the registered callback). However, if the event pass values to the registered callback, those values can be:
+Some events do not pass any data to the callback (void), while others provide useful information. Here are the main payload types:
 
-```json
-// CredentialStatus value:
-{
-    "code": "Number"
-}
-
-// Credential value:
-{
-    "id_credential": "String",
-    "username": "String",
-    "is_new": "Number",
-    "ws": "String",
-    "status": "String",
-    "twofa": "String"
-}
-
-// ApiError value:
-{
-    "longMessage": "String",
-    "message": "String",
-    "noInternet": "Boolean"
-}
-
-// JobError value:
-{
-    "code": "Number",
-    "longMessage": "String",
-    "message": "String"
-}
-
-// SocketError value:
-{
-    "longMessage": "String",
-    "message": "String",
-    "type": "error | timeout"
-}
-```
+- **CredentialStatus**
+  ```json
+  { "code": Number }
+  ```
+- **Credential**
+  ```json
+  { "id_credential": String, "username": String, "is_new": Number, "ws": String, "status": String, "twofa": String }
+  ```
+- **ApiError**
+  ```json
+  { "longMessage": String, "message": String, "noInternet": Boolean }
+  ```
+- **JobError**
+  ```json
+  { "code": Number, "longMessage": String, "message": String }
+  ```
+- **SocketError**
+  ```json
+  { "longMessage": String, "message": String, "type": "error" | "timeout" }
+  ```
 
 ---
 
 <br />
 
-##### Event Types
+## Event List
 
-The list of events available is described below:
+Below are the main events you can listen for. All events use the `on` method (not `$on`).
 
-`$on("opened", ... )`
+---
+
+### "401"
+
+Triggered when the user session is unauthorized.
+**Data:** none
 
 ```javascript
-syncWidget.$on("opened", () => {
-  // ... do something when the widget is opened ...
+syncfyWidget.on("401", () => {
+  // ... do something when user session is unauthorized ...
 });
 ```
 
 ---
 
-<br />
+### "api-error"
 
-`$on("loaded", ... )`
+Triggered when a Syncfy API call returns an error status code.
+**Data:** `(statusCode: Number | String, apiError: ApiError)`
 
 ```javascript
-syncWidget.$on("loaded", () => {
-  // ... do something when the widget is first loaded ...
+syncfyWidget.on("api-error", (statusCode, apiError) => {
+  // ... do something on API error ...
 });
 ```
 
 ---
 
-<br />
+### "back"
 
-`$on("dom-updated", ... )`
-
-```javascript
-syncWidget.$on("dom-updated", () => {
-  // ... do something when the dom changes ...
-});
-```
-
----
-
-<br />
-
-`$on("images-loading", ... )`
+Triggered when a back button is clicked.
+**Data:** none
 
 ```javascript
-syncWidget.$on("images-loading", () => {
-  // ... do something when more than 0 images are being loaded ...
-});
-```
-
----
-
-<br />
-
-`$on("images-loaded", ... )`
-
-```javascript
-syncWidget.$on("images-loaded", () => {
-  // ... do something when all the images that were being loaded are loaded ...
-});
-```
-
----
-
-<br />
-
-`$on("closed", ... )`
-
-```javascript
-syncWidget.$on("closed", () => {
-  // ... do something when the widget is closed ...
-});
-```
-
----
-
-<br />
-
-`$on("back", ... )`
-
-```javascript
-syncWidget.$on("back", () => {
+syncfyWidget.on("back", () => {
   // ... do something when a back button is clicked ...
 });
 ```
 
 ---
 
-<br />
+### "back-up-site"
 
-`$on("updated", ... )`
+Triggered when the user navigates back up a site.
+**Data:** none
 
 ```javascript
-syncWidget.$on("updated", (status: CredentialStatus) => {
-  /*
-    * In particular, this event is triggered after the Syncfy 
-    * API responds that it has received the credential values, 
-    * *and the synchronization process is about to start
-    * 
-    ... do something when a new synchronization status is reached ...
-    */
+syncfyWidget.on("back-up-site", () => {
+  // ... do something when navigating back up a site ...
 });
 ```
 
 ---
 
-<br />
+### "back-up-site-submitted"
 
-`$on("submitted", ... )`
+Triggered when the back-up-site form is submitted.
+**Data:** none
 
 ```javascript
-syncWidget.$on("submitted", () => {
+syncfyWidget.on("back-up-site-submitted", () => {
+  // ... do something when back-up-site is submitted ...
+});
+```
+
+---
+
+### "closed"
+
+Triggered when the widget is closed.
+**Data:** none
+
+```javascript
+syncfyWidget.on("closed", () => {
+  // ... do something when the widget is closed ...
+});
+```
+
+---
+
+### "dom-updated"
+
+Triggered when the DOM changes.
+**Data:** none
+
+```javascript
+syncfyWidget.on("dom-updated", () => {
+  // ... do something when the DOM changes ...
+});
+```
+
+---
+
+### "error"
+
+Triggered when there is an error in the synchronization of credentials.
+**Data:** `(credential: Credential, jobError: JobError)`
+
+```javascript
+syncfyWidget.on("error", (credential, jobError) => {
+  // ... do something when there is a synchronization error ...
+});
+```
+
+---
+
+### "images-loaded"
+
+Triggered when all images have finished loading.
+**Data:** none
+
+```javascript
+syncfyWidget.on("images-loaded", () => {
+  // ... do something when all images are loaded ...
+});
+```
+
+---
+
+### "images-loading"
+
+Triggered when images are being loaded.
+**Data:** none
+
+```javascript
+syncfyWidget.on("images-loading", () => {
+  // ... do something when images are loading ...
+});
+```
+
+---
+
+### "loaded"
+
+Triggered when the widget is first loaded.
+**Data:** none
+
+```javascript
+syncfyWidget.on("loaded", () => {
+  // ... do something when the widget is first loaded ...
+});
+```
+
+---
+
+### "opened"
+
+Triggered when the widget is opened.
+**Data:** none
+
+```javascript
+syncfyWidget.on("opened", () => {
+  // ... do something when the widget is opened ...
+});
+```
+
+---
+
+### "organization-selected"
+
+Triggered when an organization site is selected.
+**Data:** `{ id_organization: String, ... }` (object with organization info)
+
+```javascript
+syncfyWidget.on("organization-selected", (data) => {
+  // ... do something when an organization site is selected ...
+});
+```
+
+---
+
+### "organization-site-selected"
+
+Triggered when a site is selected within an organization.
+**Data:** `{ id_site: String, ... }` (object with site info)
+
+```javascript
+syncfyWidget.on("organization-site-selected", (data) => {
+  // ... do something when a site is selected ...
+});
+```
+
+---
+
+### "privacy-accepted"
+
+Triggered when the privacy policy is accepted by the user.
+**Data:** none
+
+```javascript
+syncfyWidget.on("privacy-accepted", () => {
+  // ... do something when privacy policy is accepted ...
+});
+```
+
+---
+
+### "socket-error"
+
+Triggered when the socket times out or the connection closes unexpectedly.
+**Data:** `(socketError: SocketError)`
+
+```javascript
+syncfyWidget.on("socket-error", (socketError) => {
+  // ... do something on socket error ...
+});
+```
+
+---
+
+### "status"
+
+Triggered while the synchronization status is running and after each change in status.
+**Data:** `(status: CredentialStatus)`
+
+```javascript
+syncfyWidget.on("status", (status) => {
+  // ... do something when a new synchronization status is reached ...
+});
+```
+
+---
+
+### "submitted"
+
+Triggered when a form is submitted.
+**Data:** none
+
+```javascript
+syncfyWidget.on("submitted", () => {
   // ... do something when a form is submitted ...
 });
 ```
 
 ---
 
-<br />
+### "success"
 
-`$on("status", ... )`
-
-```javascript
-syncWidget.$on("status", (status: CredentialStatus) => {
-  /*
-    * In particular, this event is triggered while the synchronization status 
-    * is running and after each change in the synchronization status this
-    * event is triggered with the current's status data
-
-    ... do something when a new synchronization status is reached ...
-    */
-});
-```
-
-For details on which are the statuses and more details on this consult the Syncfy API docs.
-
----
-
-<br />
-
-`$on("success", ... )`
+Triggered when the synchronization of a credential finishes successfully.
+**Data:** `(credential: Credential)`
 
 ```javascript
-syncWidget.$on("success", (credential: Credential) => {
-  // ... do something when the synchronization of a credential is finished successfully
+syncfyWidget.on("success", (credential) => {
+  // ... do something when synchronization is successful ...
 });
 ```
 
 ---
 
-<br />
+### "updated"
 
-`$on("error", ... )`
-
-```javascript
-syncWidget.$on("error", (credential: Credential, jobError: JobError) => {
-  // ... do something when there is some error in the synchronization of credentials  ...
-  // ... jobError is not send if the socket timeouts, for socket errors use socket-error event ...
-});
-```
-
-For details on which errors might happend and how to handle them, consult the Syncfy API docs.
-
----
-
-<br />
-
-`$on("401", ... )`
-
-Event 401 is triggered when the user session is unauthorized.
+Triggered after the Syncfy API receives credential values and the synchronization process is about to start.
+**Data:** `(status: CredentialStatus)`
 
 ```javascript
-syncWidget.$on("401", () => {
-  // ... do something when user session is unauthorized.
-  // i.e. refresh user session.
-});
-```
-
----
-
-<br />
-
-`$on("api-error", ... )`
-
-Event api-error is triggered when making call to Syncfy API returns an error status code. For a list of `statusCode` meaning check **Codes** section, the code could also be "credential_not_found" or "site_not_found".
-
-```javascript
-syncWidget.$on("api-error", (statusCode, apiError: ApiError) => {
-  // ... do something on api error.
-  // i.e. refresh user session.
-});
-```
-
-<br />
-
-`$on("socket-error", ... )`
-
-Event socket-error is triggered when the socket timeouts or the connection closed unexpectedly.
-
-```javascript
-syncWidget.$on("socket-error", (socketError: SocketError) => {
-  // ... do something on socket error.
+syncfyWidget.on("updated", (status) => {
+  // ... do something when a new synchronization status is reached ...
 });
 ```
