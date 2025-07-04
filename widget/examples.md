@@ -1,33 +1,41 @@
 ## Examples
 
 ---
+
 <br />
 
-This is the simplest code snippet of the widget. From here you can start configuring the widget as you wish:
+This is the simplest code snippet to get started with the Syncfy Widget. You can further configure the widget as needed:
 
 ```html
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://www.syncfy.com/widget/v2/widget.css" />
+    <link
+      rel="stylesheet"
+      href="https://www.syncfy.com/widget/v3/syncfy-authentication-widget.css"
+    />
     <title>Syncfy Widget</title>
   </head>
   <body>
     <div id="widget"></div>
-    <script type="text/javascript" src="https://www.syncfy.com/widget/v2/widget.js"></script>
+    <script
+      type="text/javascript"
+      src="https://www.syncfy.com/widget/v3/syncfy-authentication-widget.js"
+    ></script>
     <script>
       var params = {
-        // Set up the token
-        token: '<TOKEN_HERE>',
+        // Required: set up the token
+        token: "<TOKEN_HERE>",
+        // Optional: specify the element or selector where the widget will be rendered
+        element: "#widget",
+        // Optional: widget configuration object
         config: {
-          navigation: {
-            displayStatusInToast: true,
-          },
+          // See below for configuration options
         },
       };
-      var syncWidget = new SyncWidget(params);
-      syncWidget.open();
+      var syncfyWidget = new SyncfyWidget(params);
+      syncfyWidget.open();
     </script>
   </body>
 </html>
@@ -35,65 +43,63 @@ This is the simplest code snippet of the widget. From here you can start configu
 
 <br />
 
-Just as an example of how the Syncfy Widget set up might look like, here is the DEFAULT's one. This is the configuration that the widget will use in case you do not pass any config input apart of the required one:
+Below is the default configuration used by the widget if you do not provide a `config` object (apart from the required parameters):
 
 ```json
 {
-  // By DEFAULT the widget will use Spanish language
-  "locale": "es",
-  // By DEFAULT the widget will display Mexican sites, etc
+  "locale": "es", // Default language is Spanish
   "entrypoint": {
-    "country": "MX"
+    "country": "MX" // Default country is Mexico
   },
   "navigation": {
-    // By DEFAULT the widget WILL display business sites
+    "disableFormAutocomplete": false,
     "displayBusinessSites": true,
-    // By DEFAULT the widget WILL display logos
+    "displayCredentialInModal": false,
+    "displayErrorsInToast": true,
     "displayLogoImages": true,
-    // By DEFAULT the widget WILL NOT display the entire description of errors (if they happen)
-    "displayLongDescription": false,
-    // By DEFAULT the widget WILL display personal sites
+    "displayLongDescription": true,
     "displayPersonalSites": true,
-    // By DEFAULT the widget executes the sichronization in the modal, only
-    // if the user manually closes the modal, then the Status Toast will be displayed
+    "displayPrivacyScreen": true,
+    "displaySiteOrganizations": [],
+    "displaySiteOrganizationTypes": [],
+    "displaySites": [],
     "displayStatusInToast": false,
-    // By DEFAULT the widget WILL allow back navigation
     "enableBackNavigation": true,
-    // By DEFAULT the widget WILL NOT hide any sites, site organizations, etc:
+    "enableTwofaBackNavigation": false,
+    "formButtonsDisabledStyle": false,
+    "formShowPasswordStyle": "icon",
+    "hideSelectCountry": false,
     "hideSiteOrganizations": [],
-    "hideSites": [],
     "hideSiteOrganizationTypes": [],
-    // By DEFAULT the toast duration when success WILL be 5 seconds (5000 ms)
+    "hideSites": [],
+    "oneSiteFlow": false,
+    "quickAnswer": false,
+    "returnToSiteFormOnUserError": false,
+    "saveCredential": true,
+    "selectClass": "",
+    "socketTimeout": 240000,
     "toastDuration": 5000,
-    // By DEFAULT the toast location WILL BE be in the top-right of the screen
     "toastPosition": "top-right"
   }
 }
 ```
 
-Below are some exaples of how you can set up and configure the widget:
+Below are some examples of how you can set up and configure the widget:
 
 ---
 
 <br />
 
-##### Example 1:
-
-This is an example of how to create new credentials and hide some information:
+##### Example 1: Create a new credential and hide some information
 
 ```json
 {
-  // Set up the widget in Spanish language
-  "locale": "es",
-  // Since there is no entrypoint configured, this will set up the widget
-  // to create new credentials
+  "locale": "es", // Set widget language to Spanish
+  // No entrypoint specified: widget will open in CreationCase (create new credential)
   "navigation": {
-    // Only display Personal sites
-    "displayBusinessSites": false,
-    // Hide the site 'Renapo'
-    "hideSites": ["Renapo"],
-    // Hide the 'Blockchain' and 'Digital Wallets' organization types.
-    "hideSiteOrganizationTypes": ["Blockchain", "Digital Wallet"]
+    "displayBusinessSites": false, // Only show personal sites
+    "hideSites": ["Renapo"], // Hide the site 'Renapo'
+    "hideSiteOrganizationTypes": ["Blockchain", "Digital Wallet"] // Hide these organization types
   }
 }
 ```
@@ -102,43 +108,35 @@ This is an example of how to create new credentials and hide some information:
 
 <br />
 
-##### Example 2:
-
-This is an example of how to open the widget in a given site and restrict some navigation:
+##### Example 2: Open the widget in a specific site and restrict navigation
 
 ```json
 {
-  // Set up the widget in Spanish language
   "locale": "es",
-  // Set the entrypoint to open the widget directly in BBVA Bancomer Personal
   "entrypoint": {
-    "site": "56cf5728784806f72b8b456b" // This BBVA Bancomer Personal id_site
+    "site": "56cf5728784806f72b8b456b" // Open directly in BBVA Bancomer Personal (site ID)
   },
-  // Do not allow the user to move back. The user will always stay in Bancomer Personal
   "navigation": {
-    "enableBackNavigation": false
+    "enableBackNavigation": false // Prevent user from navigating away from this site
   }
 }
 ```
 
-In this case, we restrict the navigation so the user cannot move from a given site, since my application requirement is to not let the end-user to navigate to other widget screens. Recall, that if the user happens to introduce the username/password of an existing credential, and those new values are valid, then the existing credential will be updated with those new values.
+In this case, navigation is restricted so the user cannot move from the specified site. If the user enters credentials for an existing account and the values are valid, the existing credential will be updated.
 
 ---
 
 <br />
 
-##### Example 3:
-
-This is an example of how to re-synchronize a credential right away:
+##### Example 3: Re-synchronize an existing credential
 
 ```json
 {
-  // Set up the widget in Spanish language
   "locale": "es",
-  // Set up the widget entrypoint to an existing credential. In this case, the modal
-  // will not be opened, but the Status Toast will be opened right away.
   "entrypoint": {
-    "credential": "afaf572894806f72b8b4123"
+    "credential": "afaf572894806f72b8b4123" // Existing credential ID
   }
 }
 ```
+
+In this example, the widget opens directly in SyncCase for the specified credential, allowing immediate re-synchronization.
