@@ -1,24 +1,36 @@
 ## Headless Widget
 
-Headless Widget is a component developed by Syncfy that performs specific functions without displaying a graphical user interface to the end user. This is functional if you want to create your own completely customized widget without sacrificing the logic of the Syncfy widget to connect to all supported sites.
+Headless Widget is a set of functionalities developed by Syncfy that performs specific functions without displaying a graphical user interface to the end user. This is useful if you want to create your own completely customized widget without sacrificing the logic of the Syncfy widget to connect to all supported sites.
 
-## How to install it?
+## Accessing Headless Widget Methods
 
-_Using Node Package Manager_
+All headless methods are available under the `SyncfyWidget.headless` namespace. You do not need to instantiate a new object; simply call the desired method directly from `SyncfyWidget.headless` and pass the required parameters.
 
-Syncfy authentication widget can be installed via npm. It is recommended to get Syncfy authentication widget this way.
-<br><br>
-`npm install --save @syncfy/authentication-widget`
-<br><br>
-**Note:** You'll need to have npm 2.7.0 or greater installed, since this library is hosted as a scoped package.
-<br>
+**Example usage:**
 
-## Integration
+```js
+// Example: Get all countries supported by Syncfy
+SyncfyWidget.headless
+  .getCountries(authorization, configuration)
+  .then((countries) => {
+    // Handle the list of countries
+  });
 
-_Using bundlers (Webpack)_
-Import SyncfyWidget class
+// Example: Get a specific site
+SyncfyWidget.headless
+  .getSite(authorization, id_site, configuration)
+  .then((site) => {
+    // Handle the site object
+  });
+```
 
-`import * as SyncfyWidget from '@syncfy/authentication-widget';`
+**Key points:**
+
+- All methods are static and accessed directly from `SyncfyWidget.headless`.
+- Most methods return a Promise, so you can use `.then()` or `await` for asynchronous handling.
+- Always provide the required parameters as described in each method’s documentation.
+
+---
 
 ## Configuration
 
@@ -115,13 +127,13 @@ SyncfyWidget.headless.getOrganizationSites(authorization, params, configuration)
 
 **PARAMETERS**
 
-| Parameter | Value |
-|---------------------------|---------------------------------------|
-| id_site_organization | *ID* (optional) Site Organization ID |
-| id_site_organization_type | *ID* (optional) Site Organization Type ID |
-| id_country | *ID* (optional) Country ID |
-| is_business | *Number* (optional) Site is business |
-| is_personal | *Number* (optional) Site is personal |
+| Parameter                 | Value                                     |
+| ------------------------- | ----------------------------------------- |
+| id_site_organization      | _ID_ (optional) Site Organization ID      |
+| id_site_organization_type | _ID_ (optional) Site Organization Type ID |
+| id_country                | _ID_ (optional) Country ID                |
+| is_business               | _Number_ (optional) Site is business      |
+| is_personal               | _Number_ (optional) Site is personal      |
 
 <br>
 
@@ -502,7 +514,6 @@ SyncfyWidget.headless.siteConnection(authorization, site, configuration);
 
 #### **siteConnection Methods**
 
-
 ##### **getFields**()
 
 This method is used for V1 sites.
@@ -547,6 +558,7 @@ This method is used for V1 sites.
   }
 ]
 ```
+
 **NOTE:** The response varies according to the requested site.
 
 <br>
@@ -593,6 +605,7 @@ This method is used for V3 sites.
   }
 ]
 ```
+
 **NOTE:** The response varies according to the requested site.
 
 <br>
@@ -662,7 +675,7 @@ This method is used for V1 sites.
  */
 if (site.version === 1) {
       site.connect(data);
-  } 
+  }
 ```
 
 <br>
@@ -679,7 +692,7 @@ This method is used for V3 sites.
  */
 if (site.version === 3) {
       site.connect(0, data);
-  } 
+  }
 ```
 
 #### **siteConnection Events**
@@ -804,13 +817,13 @@ SyncfyWidget.headless
 
 **newStatus value:**
 
-| Status | Description |
-|--------|-------------|
-|"start"| The synchronization has started|
-|"loading"| The synchronization is loading|
-|"twofa"| Code 410 detected, requires two-factor authentication (2FA)|
-|"twofa-loading"| The two-factor authentication (2FA) has been sent and is loading|
-|"finish"| The synchronization has finished|
+| Status          | Description                                                      |
+| --------------- | ---------------------------------------------------------------- |
+| "start"         | The synchronization has started                                  |
+| "loading"       | The synchronization is loading                                   |
+| "twofa"         | Code 410 detected, requires two-factor authentication (2FA)      |
+| "twofa-loading" | The two-factor authentication (2FA) has been sent and is loading |
+| "finish"        | The synchronization has finished                                 |
 
 ---
 
@@ -997,6 +1010,7 @@ SyncfyWidget.headless.syncCredential(authorization, id_credential, configuration
 ]
 
 ```
+
 #### **syncCredential Events**
 
 The list of events available is described below:
@@ -1131,28 +1145,30 @@ SyncfyWidget.headless.syncCredential(authorization, id_credential, configuration
 
 **newStatus value:**
 
-| Status | Description |
-|--------|-------------|
-|"error"| There was an error while trying to synchronize the credential|
-|"found"| The credential ID was found in the credentials created by the user|
-|"not-found"| The credential ID wasn't found in the credentials created by the user|
-|"loading"| The synchronization is loading|
-|"searching"| The credential ID is being searched in the credentials created by the user|
-|"socket-error"| There was a socket error |
-|"socket-quick-answer"| The credential successfully logged in to the site, and the quick answer activation was detected |
-|"socket-timeout"| The socket timeout has expired |
-|"twofa"| Code 410 detected, requires two-factor authentication (2FA)|
-|"twofa-loading"| The two-factor authentication (2FA) has been sent and is loading|
-|"twofa-api-error"| An error was detected in the API regarding the two-factor authentication (2FA) |
-|"twofa-loading"| The two-factor authentication (2FA) was sent and is loading |
-|"success"| The synchronization has finished|
+| Status                | Description                                                                                     |
+| --------------------- | ----------------------------------------------------------------------------------------------- |
+| "error"               | There was an error while trying to synchronize the credential                                   |
+| "found"               | The credential ID was found in the credentials created by the user                              |
+| "not-found"           | The credential ID wasn't found in the credentials created by the user                           |
+| "loading"             | The synchronization is loading                                                                  |
+| "searching"           | The credential ID is being searched in the credentials created by the user                      |
+| "socket-error"        | There was a socket error                                                                        |
+| "socket-quick-answer" | The credential successfully logged in to the site, and the quick answer activation was detected |
+| "socket-timeout"      | The socket timeout has expired                                                                  |
+| "twofa"               | Code 410 detected, requires two-factor authentication (2FA)                                     |
+| "twofa-loading"       | The two-factor authentication (2FA) has been sent and is loading                                |
+| "twofa-api-error"     | An error was detected in the API regarding the two-factor authentication (2FA)                  |
+| "twofa-loading"       | The two-factor authentication (2FA) was sent and is loading                                     |
+| "success"             | The synchronization has finished                                                                |
 
 ---
 
 ## Twofa
+
 There are 3 ways to obtain the same premise for two-factor authentication:
 
 ### **twofa**(authorization: Object, status: Object, configuration: Object)
+
 This method returns a promise that resolves to an object. This object has different methods to conclude the credential synchronization with two-factor authentication:
 
 ```
@@ -1208,6 +1224,7 @@ SyncfyWidget.headless
           twofa.displaySubmitButton; // ... Use this property to determine whether to display the continue button or not ...
       });
 ```
+
 <br>
 
 ### **Twofa methods**
@@ -1244,7 +1261,7 @@ SyncfyWidget.headless
  * The JSON containing the two-factor authentication values (data) is sent as a parameter, for example: {"token": "89704371"}.
  */
       twofa.authenticate(data);
-   
+
 ```
 
 ### **Twofa Events**
@@ -1286,4 +1303,3 @@ SyncfyWidget.headless
       // ... do something when the two-factor authentication is loading ...
   });
 ```
-
