@@ -1,135 +1,135 @@
-### Methods
+# Syncfy Widget Methods
 
 ---
 
-<br />
+The _Syncfy Widget_ instance exposes several methods to configure and control the widget. Most methods update the widget's configuration or state, but do not automatically re-render the UI. To see changes reflected, call `syncfyWidget.open()` after updating the configuration (unless otherwise noted).
 
-The _Syncfy Widget_ **instance** has several methods that you can use to configure it but also to manipulate it
-
-All of the methods described below with the exception of `setEntrypointCredential` will only modify the current set up of the widget but will not re-render it automatically. Therefore, after executing those methods and in order to see the changes reflected in the UI the `syncWidget.open` method has to be executed.
-
-All the methods exposed by the SyncWidget are exposed below:
+Below are the main methods available on a Syncfy Widget instance:
 
 ---
 
-<br />
-
-`open()`
+## open()
 
 ```javascript
-/*
- * Use this method to open the Syncfy Widget modal
- */
-syncWidget.open();
+// Opens the Syncfy Widget modal or UI.
+syncfyWidget.open();
 ```
 
+Use this method to open the widget. Call this after updating configuration to re-render the UI.
+
 ---
 
 <br />
 
-`close()`
+## close()
 
 ```javascript
-/*
- * Use this method to close the Syncfy Widget modal
- */
-syncWidget.close();
+// Closes the Syncfy Widget modal or UI.
+syncfyWidget.close();
 ```
 
+Use this method to close the widget.
+
 ---
 
 <br />
 
-`setConfig(widgetConfig: WidgetConfig)`
+## setConfig(widgetConfig: WidgetConfig)
 
 ```javascript
-/*
-* Use this method to fully replace the current widget
-* configuration or set a new one
-*/
-syncWidget.setConfig({.
-    // ... a valid WidgetConfig value goes here ...
+// Fully replace the current widget configuration.
+syncfyWidget.setConfig({
+  // ... a valid WidgetConfig object ...
 });
 ```
 
-Notice that the given config will totally replace the current's widget instance configuration. **This is a full replace, not a patch / upsert of the current configuration.**
+This method completely replaces the current configuration. Call `open()` to apply changes.
 
 ---
 
 <br />
 
-`upsertConfig(widgetConfig: WidgetConfig)`
+## upsertConfig(widgetConfig: WidgetConfig)
 
 ```javascript
-/*
-* Use this method to patch / upsert the current configuration.
-*/
-syncWidget.upsertConfig({.
-    // ... a partial WidgetConfig value goes here ...
+// Patch or upsert the current configuration.
+syncfyWidget.upsertConfig({
+  // ... a partial WidgetConfig object ...
 });
 ```
 
-In contrast to `setConfig`, this config will be merged with the current's widget configuration.
+This method merges the given config with the current configuration. Call `open()` to apply changes.
 
 ---
 
 <br />
 
-`setToken(token: String)`
+## setToken(token: String)
 
 ```javascript
-/*
- * Use this method to replace or set a new authentication token.
- */
-syncWidget.setToken("... a valid Syncfy API token ... ");
+// Set or replace the authentication token.
+syncfyWidget.setToken("...a valid Syncfy API token...");
 ```
 
+Use this method to update the token for authentication. Call `open()` if you want to refresh the UI with the new token.
+
 ---
 
 <br />
 
-`setEntrypointCredential(id_credential: String)`
+## setEntrypointCredential(idCredential: String)
 
 ```javascript
-/*
- * Use this method to open the *Syncfy Widget* for the given credential
- * and thus re-synchronize the credential or put it up to date
- */
-syncWidget.setEntrypointCredential("...some-credential-id...");
+// Open the widget for the given credential (re-synchronization case).
+syncfyWidget.setEntrypointCredential("...credential-id...");
 ```
 
-When called this method, the synchronization process will be triggered (the status toast will be opened right away). Also, since this action starts the widget for the **re-synchronization case** and this case does not uses the modal, there is no need to execute `open()` after setting the credential entrypoint.
+This method triggers the synchronization process for the specified credential. The status toast will open immediately. You do not need to call `open()` after this method.
 
 ---
 
 <br />
 
-`setEntrypointSite(id_site: String)`
+## setEntrypointSite(idSite: String)
 
 ```javascript
-/*
- * Use this method to set up the *Syncfy Widget* entrypoint to the
- * given id_site. When the widget is opened it will starts in the
- * given id_site ready to get the username, password, etc.
- */
-syncWidget.setEntrypointSite("...some id_site...");
+// Set the widget entrypoint to a specific site (for updating credentials).
+syncfyWidget.setEntrypointSite("...site-id...");
 ```
 
-When the widget is set up for a given id_site, and the user happens to introduce the username/password of a credential that already exist, the Syncfy API will automatically recognize this and update the existing credential to store the new username and password data if valid. This is why, the `entrypoint.site` can be used to edit an existing credential's username, password, etc. Although your not providing the id_credential, the Syncfy API will infer it from the username provided that this value is unique.
+When set, the widget will start in the given site, ready to update credentials (username, password, etc.). If the user enters credentials for an existing account, the Syncfy API will update the credential. Call `open()` to show the UI for the new entrypoint.
 
 ---
 
-<br />
-
-`$on(eventName: string)`
+## getLastRid()
 
 ```javascript
-/*
- * Use this method to listen to the Syncfy Widget events and do something
- */
-syncWidget.$on("opened", () => {
-  // ... do something when the widget is opened ...
+// Get the last request ID (rid) from API calls.
+const rid = syncfyWidget.getLastRid();
+```
+
+Returns the last request ID used in API calls. Useful for debugging or tracking requests.
+
+---
+
+## setEntrypointUpdateCredential(idCredential: String)
+
+```javascript
+// Open the widget in UpdateCase for the given credential (only non-identifier fields).
+syncfyWidget.setEntrypointUpdateCredential("...credential-id...");
+```
+
+This method opens the widget in UpdateCase for the specified credential, showing only non-identifier fields. You do not need to call `open()` after this method.
+
+---
+
+## on(eventName: String, callback: Function)
+
+```javascript
+// Listen to Syncfy Widget events.
+syncfyWidget.on("opened", () => {
+  // ...do something when the widget is opened...
 });
 ```
 
-The list of valid eventName(s) is here: "401", "error", "success", "status", "updated", "submitted", "back", "opened", and "closed". You can consult more about events in the **Events** section.
+Use this method to subscribe to widget events. Common event names include: `"401"`, `"error"`, `"success"`, `"status"`, `"updated"`, `"submitted"`, `"back"`, `"opened"`, and `"closed"`. See the **Events** section for more details.
