@@ -610,9 +610,107 @@ This method is used for V3 sites.
 
 <br>
 
+##### **getFields**(index, updateMode = false)
+
+This method is used for V4 sites.
+
+```
+/*
+ * Use this method to get the fields of the requested site.
+ * This method is for version 4 sites.
+ * If updateMode is true, only non-identifier fields are returned (for updateCredential flows).
+ */
+SyncfyWidget.headless
+  .getSite(authorization, id_site, configuration)
+  .then((apiSite) => {
+    SyncfyWidget.headless
+      .siteConnection(authorization, apiSite, configuration)
+      .then((site) => {
+        if (site.version === 4) {
+          // For connection (all fields):
+          site.getFields(0);
+          // For update (only updatable fields):
+          site.getFields(0, true);
+        }
+      });
+  });
+```
+
+**Method response example**
+
+```
+[
+  {
+    "name": "username",
+    "required": true,
+    "type": "text",
+    "label": "Usuario",
+    "validation": null,
+    "identifier": true
+  },
+  {
+    "name": "password",
+    "required": true,
+    "type": "password",
+    "label": "Contraseña",
+    "validation": null,
+    "identifier": false
+  }
+]
+```
+
+**NOTE:** The response varies according to the requested site and the `updateMode` flag.
+
+<br>
+
+##### **getBackUpFields**(updateMode = false)
+
+This method is used for V4 sites that support a backup connection flow.
+
+```
+/*
+ * Use this method to get the backup fields of the requested site.
+ * This method is for version 4 sites.
+ * If updateMode is true, only non-identifier fields are returned (for updateCredential flows).
+ */
+SyncfyWidget.headless
+  .getSite(authorization, id_site, configuration)
+  .then((apiSite) => {
+    SyncfyWidget.headless
+      .siteConnection(authorization, apiSite, configuration)
+      .then((site) => {
+        if (site.version === 4) {
+          // For connection (all backup fields):
+          site.getBackUpFields();
+          // For update (only updatable backup fields):
+          site.getBackUpFields(true);
+        }
+      });
+  });
+```
+
+**Method response example**
+
+```
+[
+  {
+    "name": "statement_file",
+    "required": true,
+    "type": "file",
+    "label": "Estado de cuenta",
+    "validation": null,
+    "identifier": false
+  }
+]
+```
+
+**NOTE:** The response varies according to the requested site and the `updateMode` flag.
+
+<br>
+
 ##### **getOptions**()
 
-This method is used for V3 sites.
+This method is used for V3 or V4 sites.
 
 ```
 /*
@@ -625,7 +723,7 @@ This method is used for V3 sites.
         SyncfyWidget.headless
           .siteConnection(authorization, apiSite, configuration)
           .then((site) => {
-              if (site.version === 3) {
+              if (site.version === 3 || site.version === 4) {
                 site.getOptions();
               }
           });
@@ -694,6 +792,28 @@ if (site.version === 3) {
       site.connect(0, data);
   }
 ```
+
+##### **connect**(index, data, backUp = false)
+
+This method is used for V4 sites.
+
+```
+/*
+ * Use this method to send the access credentials and establish a connection to the site.
+ * This method is for version 4 sites.
+ * The index parameter selects the connection option (from getOptions()).
+ * The data parameter is an object with the required fields.
+ * The backUp parameter (default: false) triggers the backup flow if true.
+ */
+if (site.version === 4) {
+  // Normal connection
+  site.connect(0, { username: "user", password: "pass" });
+  // Backup connection (e.g., statement upload)
+  site.connect(0, { statement_file: /* file object */ }, true);
+}
+```
+
+<br>
 
 #### **siteConnection Events**
 
