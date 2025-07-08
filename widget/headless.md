@@ -1303,3 +1303,79 @@ SyncfyWidget.headless
       // ... do something when the two-factor authentication is loading ...
   });
 ```
+
+---
+
+### **updateCredential**(authorization: Object, id_credential: String, configuration: Object)
+
+```
+/*
+ * Use this method to update an existing credential.
+ * This method requires three parameters:
+ * 'authorization',
+ * 'id_credential' (Syncfy credential ID), and
+ * 'configuration'.
+ * Returns a CredentialService instance, which exposes methods and events for the update flow.
+ */
+SyncfyWidget.headless.updateCredential(authorization, id_credential, configuration);
+```
+
+**Parameters:**
+
+- `authorization`: `{ token: string, strict?: object }`
+- `id_credential`: `string`
+- `configuration`: `{ locale?: string, quickAnswer?: boolean, socketTimeout?: number, ... }`
+
+**Usage example:**
+
+```js
+SyncfyWidget.headless
+  .updateCredential({ token }, "credential_id", {
+    locale: "es",
+    quickAnswer: false,
+    socketTimeout: 120000,
+  })
+  .then((credentialService) => {
+    credentialService.on("found", () => {
+      const site = credentialService.getSite();
+      const siteService = credentialService.getSiteService();
+      // For v1 sites:
+      if (site.version === 1) {
+        siteService.getFields(true);
+        credentialService.update(siteService, { password: "test" });
+      }
+      // For v3/v4 sites:
+      else if (site.version === 3 || site.version === 4) {
+        siteService.getFields(0, true);
+        // For backup flow (v4), pass true as the last argument
+        credentialService.update(
+          siteService,
+          { password: "test" },
+          0,
+          /* backUp */ false
+        );
+      }
+    });
+    credentialService.on("twofa", () => {
+      // Handle 2FA challenge
+      const fields = credentialService.twofa.getFields();
+      credentialService.twofa.authenticate({ token: "123456" });
+    });
+    credentialService.on("socket-message", (data) => {
+      // Handle socket status updates
+      console.log(data);
+    });
+    credentialService.on("socket-quick-answer", () => {
+      // Handle quick answer event
+    });
+    credentialService.on("socket-timeout", () => {
+      // Handle socket timeout
+    });
+  });
+```
+
+**Notes:**
+
+- The update flow is similar to syncCredential, but is intended for updating credentials non identifier fields.
+- For v4 sites, you can use the `backUp` parameter to trigger the backup update flow.
+- All events and methods available in the CredentialService instance are also available here.
