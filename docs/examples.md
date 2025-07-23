@@ -1,6 +1,7 @@
 ## Examples
 
 ---
+
 <br />
 
 This is the simplest code snippet of the widget. From here you can start configuring the widget as you wish:
@@ -10,16 +11,22 @@ This is the simplest code snippet of the widget. From here you can start configu
 <html>
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://www.syncfy.com/widget/v2/widget.css" />
+    <link
+      rel="stylesheet"
+      href="https://www.syncfy.com/widget/v3/syncfy-authentication-widget.css"
+    />
     <title>Syncfy Widget</title>
   </head>
   <body>
     <div id="widget"></div>
-    <script type="text/javascript" src="https://www.syncfy.com/widget/v2/widget.js"></script>
+    <script
+      type="text/javascript"
+      src="https://www.syncfy.com/widget/v3/syncfy-authentication-widget.js"
+    ></script>
     <script>
       var params = {
         // Set up the token
-        token: '<TOKEN_HERE>',
+        token: "<TOKEN_HERE>",
         config: {
           navigation: {
             displayStatusInToast: true,
