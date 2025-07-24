@@ -1,3 +1,10 @@
+
+
+
+> **⚠️ Deprecation Notice:**
+>
+> The Syncfy Widget v2 is deprecated and will only receive bug fixes until 2026. Please consider migrating to the latest Syncfy Widget for new features and ongoing support.
+
 ##### How to install it?
 
 There are two ways to install the Syncfy Widget
