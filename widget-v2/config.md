@@ -228,7 +228,7 @@ The **WidgetConfig** object is described below:
     "socketTimeout": 600000,
     //Indicates whether or not login credentials will be stored in Syncfy.
     //If this attribute is not added, the default value is true, so the credentials will be stored.
-    //If the attribute value is false, the credential will not be automatically executed, and the user will be required to enter their login credentials each time      they need to update their transactional information.
+    //If the attribute value is false, the credential will not be automatically executed, and the user will be required to enter their login credentials each time they need to update their transactional information.
     //This attribute is useful if you require the user to always enter their login credentials and if you don't require automatic synchronization.
     "saveCredential": "bool",
   }
