@@ -80,7 +80,7 @@ In the old Widget, the provided element was replaced by the Widget. In the new W
 | `navigation.displayPrivacyScreen`     | ❌                    | ✅                      | New: Show privacy policy screen before syncing.                                    |
 | `navigation.hideAsideMenu`            | ✅                    | ❌                      | In the new widget, the menu doesn't exist.                                         |
 | `navigation.quickAnswer`              | `quickanswer`         | `quickAnswer`           | Typo fixed: use `quickAnswer`.                                                     |
-| `navigation.toastPosition`            | Fewer options         | More options            | Now supports `top-center` and `bottom-center`.                                     |
+| `navigation.toastPosition`            | More options          | Fewer options           | Removed `top-center` and `bottom-center` options.                                  |
 
 ---
 

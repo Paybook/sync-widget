@@ -218,14 +218,14 @@ The **WidgetConfig** object is described below:
     // the end-user will always need to close the toast manually. Default=5000
     "toastDuration": "number",
     // It specifies, the location in the screen where the status toast is to be displayed.
-    // Default='top-right'. Alowed values: 'top-left', 'top-center', 'top-right',
-    // 'bottom-left', 'bottom-center', 'bottom-right'
+    // Default='top-right'. Alowed values: 'top-left', 'top-right',
+    // 'bottom-left', 'bottom-right'
     "toastPosition": "string",
     //Assign a specific time to the socket timeout; this value is managed in milliseconds.
     //If this attribute is not added, it defaults to 300000 milliseconds.
     //This attribute is useful if you have a credential with multiple accounts and need
     //to wait until the execution is complete.
-    "socketTimeout": 600000,
+    "socketTimeout": 600000
   }
 }
 ```
