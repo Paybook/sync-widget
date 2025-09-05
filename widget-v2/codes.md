@@ -143,6 +143,11 @@ Credential Status Codes
             <td>WrongSite</td>
             <td>The given credentials seem to be valid but they belong to a different site from the same organization.</td>
         </tr>
+        <tr>
+            <td>449</td>
+            <td>DeprecatedSite</td>
+            <td>The credential you are trying to sync belongs to a site that is no longer supported.</td>
+        </tr>
     </tbody>
 </table> 
 
