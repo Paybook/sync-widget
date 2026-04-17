@@ -1,8 +1,8 @@
-##### How to install it?
+## How to install it?
 
 There are two ways to install the Syncfy Authentication Widget
 
-_[1] Using Node Package Manager:_
+### _[1] Using Node Package Manager:_
 
 The first step is to install [@syncfy/authentication-widget](https://www.npmjs.com/package/@syncfy/authentication-widget) with NPM:
 
@@ -22,7 +22,20 @@ And finally get access to the `SyncfyWidget` class by importing it:
 import SyncfyWidget from "@syncfy/authentication-widget";
 ```
 
-_[2] Using CDN:_
+#### ⚠️ Environment Compatibility
+
+If you are using modern build tools (like Vite in Angular 16+ or Next.js), you may encounter a ReferenceError: global is not defined. This happens because modern environments do not include Node.js polyfills by default.
+To resolve this, add the following shim to your project's entry point (e.g., polyfills.ts, main.ts, or layout.tsx):
+
+```
+// Fix for "global is not defined"
+
+if (typeof global === 'undefined') {
+  (window as any).global = window;
+}
+```
+
+### _[2] Using CDN:_
 
 To install it via CDN import the following files in your _index.html_ file:
 
@@ -50,7 +63,7 @@ This will expose the `SyncfyWidget` class in the global window object.
 
 <br />
 
-##### Where can I use it?
+## Where can I use it?
 
 First of all, since the widget is coded in vanilla JavaScript, you can use it in any web application, no matter what framework you use (React, Vue, Angular, jQuery, etc).
 
@@ -66,7 +79,7 @@ To use the widget, follow this checklist:
 
 <br />
 
-##### What can I do with the Syncfy Widget?
+## What can I do with the Syncfy Widget?
 
 You can use the _Syncfy Widget_ for the following use cases:
 
@@ -78,7 +91,7 @@ You can use the _Syncfy Widget_ for the following use cases:
 
 <br />
 
-##### Where can I learn how to implement it and customize it?
+## Where can I learn how to implement it and customize it?
 
 There is plenty of documentation and resources that will help you implement the Syncfy Widget, namely:
 
